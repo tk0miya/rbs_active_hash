@@ -1,0 +1,26 @@
+module RbsActiveHash
+  module ActiveHash
+    def self.user_defined_model?: (Class klass) -> bool
+    def self.class_to_rbs: (Class klass) -> String
+
+    class Generator
+      @klass: Class
+
+      def initialize: (Class class) -> void
+      def generate: () -> String
+
+      private
+
+      def klass_decl: () -> String
+      def header: () -> String
+      def enum_decls: () -> String?
+      def constants: () -> Array[String]
+      def method_decls: () -> String
+      def method_names: () -> Array[String]
+      def valid_field_name?: (String) -> boolish
+      def footer: () -> String
+
+      attr_reader klass: Class
+    end
+  end
+end
