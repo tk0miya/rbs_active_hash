@@ -3,6 +3,7 @@ PATH
   specs:
     rbs_active_hash (0.1.0)
       active_hash
+      rbs_rails
 
 GEM
   remote: https://rubygems.org/
@@ -43,6 +44,9 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (3.1.0)
+    rbs_rails (0.12.0)
+      parser
+      rbs (>= 1)
     regexp_parser (2.8.0)
     rexml (3.2.5)
     rspec (3.12.0)
