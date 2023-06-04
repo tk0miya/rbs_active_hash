@@ -1,0 +1,6 @@
+module RbsActiveHash
+  module RakeTask
+    @name: Symbol
+    @signature_root_dir: Pathname
+  end
+end
