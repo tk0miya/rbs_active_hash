@@ -11,7 +11,7 @@ module RbsActiveHash
 
           RbsActiveHash::RakeTask.new
         rescue LoadError
-          # failed to load rbs_rails. Skip to load rbs_rails tasks.
+          # failed to load rbs_active_hash. Skip to load rbs_active_hash tasks.
         end
       RUBY
     end
