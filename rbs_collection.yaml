@@ -19,5 +19,3 @@ gems:
   - name: rbs
   - name: steep
     ignore: true
-  - name: rbs_rails
-    ignore: true

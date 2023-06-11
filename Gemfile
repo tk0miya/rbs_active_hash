@@ -15,3 +15,9 @@ group :development do
 
   gem "steep"
 end
+
+# dependencies only for signature
+group :signature do
+  gem "activerecord"
+  gem "railties"
+end
