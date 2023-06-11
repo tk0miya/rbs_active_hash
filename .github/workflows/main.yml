@@ -31,3 +31,5 @@ jobs:
       run: bundle exec rspec
     - name: Run rbs validate
       run: bundle exec rbs -Isig validate --silent
+    - name: Run steep check
+      run: bundle exec steep check
