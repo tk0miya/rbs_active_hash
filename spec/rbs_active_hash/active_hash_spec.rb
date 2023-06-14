@@ -64,11 +64,11 @@ RSpec.describe RbsActiveHash::ActiveHash do
           def self.find_by_order: (Integer value) -> self?
           def self.find_all_by_order: (Integer value) -> Array[self]
 
-          def other: () -> (String | bool | nil)
-          def other=: (String | bool | nil value) -> void
+          def other: () -> (String | bool)?
+          def other=: ((String | bool)? value) -> void
           def other?: () -> bool
-          def self.find_by_other: (String | bool | nil value) -> self?
-          def self.find_all_by_other: (String | bool | nil value) -> Array[self]
+          def self.find_by_other: ((String | bool)? value) -> self?
+          def self.find_all_by_other: ((String | bool)? value) -> Array[self]
         end
       RBS
     end
