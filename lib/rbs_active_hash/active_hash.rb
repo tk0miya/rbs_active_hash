@@ -129,7 +129,12 @@ module RbsActiveHash
         elsif type.is_a? Class
           type.name
         elsif type.is_a? Array
-          "(#{type.map { |t| stringify_type(t) }.uniq.sort.join(" | ")})"
+          types = type.map { |t| stringify_type(t) }.uniq.sort
+          if types.delete("nil")
+            "(#{types.join(" | ")})?"
+          else
+            "(#{types.join(" | ")})"
+          end
         else
           type.to_s
         end
