@@ -16,9 +16,12 @@ module RbsActiveHash
       def enum_decls: () -> String?
       def constants: () -> Array[String]
       def method_decls: () -> String
-      def method_names: () -> Array[String]
+      def method_names: () -> Array[Symbol]
+      def method_types: () -> Hash[Symbol, untyped]
       def valid_field_name?: (String) -> boolish
       def footer: () -> String
+
+      def stringify_type: (untyped type) -> String
 
       attr_reader klass: Class
     end
