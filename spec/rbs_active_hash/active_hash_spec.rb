@@ -9,9 +9,9 @@ class Colour < ActiveHash::Base
   enum_accessor :name
 
   self.data = [
-    { id: 1, name: "red", code: "#ff0000" },
-    { id: 2, name: "green", code: "#00ff00" },
-    { id: 3, name: "blue", code: "#0000ff" }
+    { id: 1, name: "red", code: "#ff0000", order: 1, other: "misc" },
+    { id: 2, name: "green", code: "#00ff00", order: 2, other: nil },
+    { id: 3, name: "blue", code: "#0000ff", order: 3, other: true }
   ]
 end
 
@@ -46,17 +46,29 @@ RSpec.describe RbsActiveHash::ActiveHash do
           GREEN: instance
           BLUE: instance
 
-          def name: () -> untyped
-          def name=: (untyped value) -> void
+          def name: () -> String
+          def name=: (String value) -> void
           def name?: () -> bool
-          def self.find_by_name: (untyped value) -> self?
-          def self.find_all_by_name: (untyped value) -> Array[self]
+          def self.find_by_name: (String value) -> self?
+          def self.find_all_by_name: (String value) -> Array[self]
 
-          def code: () -> untyped
-          def code=: (untyped value) -> void
+          def code: () -> String
+          def code=: (String value) -> void
           def code?: () -> bool
-          def self.find_by_code: (untyped value) -> self?
-          def self.find_all_by_code: (untyped value) -> Array[self]
+          def self.find_by_code: (String value) -> self?
+          def self.find_all_by_code: (String value) -> Array[self]
+
+          def order: () -> Integer
+          def order=: (Integer value) -> void
+          def order?: () -> bool
+          def self.find_by_order: (Integer value) -> self?
+          def self.find_all_by_order: (Integer value) -> Array[self]
+
+          def other: () -> (String | bool | nil)
+          def other=: (String | bool | nil value) -> void
+          def other?: () -> bool
+          def self.find_by_other: (String | bool | nil value) -> self?
+          def self.find_all_by_other: (String | bool | nil value) -> Array[self]
         end
       RBS
     end
