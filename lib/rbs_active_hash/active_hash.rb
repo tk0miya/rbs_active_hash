@@ -85,12 +85,13 @@ module RbsActiveHash
 
       def method_decls
         method_names.map do |method|
+          method_type = stringify_type(method_types.fetch(method, "untyped"))
           <<~RBS
-            def #{method}: () -> untyped
-            def #{method}=: (untyped value) -> void
+            def #{method}: () -> #{method_type}
+            def #{method}=: (#{method_type} value) -> void
             def #{method}?: () -> bool
-            def self.find_by_#{method}: (untyped value) -> self?
-            def self.find_all_by_#{method}: (untyped value) -> Array[self]
+            def self.find_by_#{method}: (#{method_type} value) -> self?
+            def self.find_all_by_#{method}: (#{method_type} value) -> Array[self]
           RBS
         end.join("\n")
       end
@@ -102,12 +103,36 @@ module RbsActiveHash
         method_names.uniq.select { |k| k != :id && valid_field_name?(k) }
       end
 
+      def method_types
+        method_types = Hash.new { |hash, key| hash[key] = [] }
+        (klass.data || []).each do |record|
+          record.symbolize_keys.each do |key, value|
+            method_types[key] << value.class
+          end
+        end
+        method_types.transform_values(&:uniq)
+      end
+
       def valid_field_name?(name)
         name.to_s =~ /^[a-zA-Z_][a-zA-Z0-9_]*$/
       end
 
       def footer
         "end\n" * klass.module_parents.size
+      end
+
+      def stringify_type(type)
+        if [TrueClass, FalseClass].include?(type)
+          "bool"
+        elsif type == NilClass
+          "nil"
+        elsif type.is_a? Class
+          type.name
+        elsif type.is_a? Array
+          "(#{type.map { |t| stringify_type(t) }.uniq.sort.join(" | ")})"
+        else
+          type.to_s
+        end
       end
 
       attr_reader :klass
