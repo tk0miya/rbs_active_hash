@@ -4,7 +4,8 @@ module RbsActiveHash
     def self.class_to_rbs: (Class klass) -> String
 
     class Generator
-      @klass: Class
+      attr_reader klass: Class
+      attr_reader klass_name: String
 
       def initialize: (Class class) -> void
       def generate: () -> String
@@ -22,8 +23,6 @@ module RbsActiveHash
       def footer: () -> String
 
       def stringify_type: (untyped type) -> String
-
-      attr_reader klass: Class
     end
   end
 end
