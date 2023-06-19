@@ -1,5 +1,6 @@
 {
     "[ruby]": {
         "editor.defaultFormatter": "Shopify.ruby-lsp"
-    }
+    },
+    "rbs-helper.signature-directory": "sig"
 }

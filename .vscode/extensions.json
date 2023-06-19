@@ -2,6 +2,7 @@
     "recommendations": [
         "shopify.ruby-lsp",
         "soutaro.steep-vscode",
-        "tk0miya.rspec-daemon"
+        "tk0miya.rspec-daemon",
+        "tk0miya.rbs-helper"
     ]
 }
