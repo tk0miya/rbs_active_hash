@@ -15,8 +15,11 @@ module RbsActiveHash
     end
 
     class Generator
+      attr_reader :klass, :klass_name
+
       def initialize(klass)
         @klass = klass
+        @klass_name = RbsRails::Util.module_name(klass)
       end
 
       def generate
@@ -43,12 +46,23 @@ module RbsActiveHash
       end
 
       def header
-        module_defs = module_names.map { |module_name| "module #{module_name}" }
+        namespace = +""
+        klass_name.split("::").map do |mod_name|
+          namespace += "::#{mod_name}"
+          mod_object = Object.const_get(namespace)
+          case mod_object
+          when Class
+            # @type var superclass: Class
+            superclass = _ = mod_object.superclass
+            superclass_name = RbsRails::Util.module_name(superclass)
 
-        class_name = klass.name.split("::").last
-        class_def = "class #{class_name} < ::#{klass.superclass}"
-
-        (module_defs + [class_def]).join("\n")
+            "class #{mod_name} < ::#{superclass_name}"
+          when Module
+            "module #{mod_name}"
+          else
+            raise "unreachable"
+          end
+        end.join("\n")
       end
 
       def module_names
@@ -139,8 +153,6 @@ module RbsActiveHash
           type.to_s
         end
       end
-
-      attr_reader :klass
     end
   end
 end
