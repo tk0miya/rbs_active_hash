@@ -47,25 +47,25 @@ RSpec.describe RbsActiveHash::ActiveHash do
           BLUE: instance
 
           def name: () -> String
-          def name=: (String value) -> void
+          def name=: (String value) -> String
           def name?: () -> bool
           def self.find_by_name: (String value) -> self?
           def self.find_all_by_name: (String value) -> Array[self]
 
           def code: () -> String
-          def code=: (String value) -> void
+          def code=: (String value) -> String
           def code?: () -> bool
           def self.find_by_code: (String value) -> self?
           def self.find_all_by_code: (String value) -> Array[self]
 
           def order: () -> Integer
-          def order=: (Integer value) -> void
+          def order=: (Integer value) -> Integer
           def order?: () -> bool
           def self.find_by_order: (Integer value) -> self?
           def self.find_all_by_order: (Integer value) -> Array[self]
 
           def other: () -> (String | bool)?
-          def other=: ((String | bool)? value) -> void
+          def other=: ((String | bool)? value) -> (String | bool)?
           def other?: () -> bool
           def self.find_by_other: ((String | bool)? value) -> self?
           def self.find_all_by_other: ((String | bool)? value) -> Array[self]
