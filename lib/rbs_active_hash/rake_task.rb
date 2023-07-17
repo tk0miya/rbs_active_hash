@@ -7,7 +7,7 @@ require "rbs_active_hash"
 
 module RbsActiveHash
   class RakeTask < Rake::TaskLib
-    attr_accessor  :name, :signature_root_dir
+    attr_accessor :name, :signature_root_dir
 
     def initialize(name = :"rbs:active_hash", &block)
       super()

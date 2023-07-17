@@ -1,6 +1,18 @@
 module RbsActiveHash
-  module RakeTask
+  class RakeTask < Rake::TaskLib
+    attr_accessor name: Symbol
+    attr_accessor signature_root_dir: Pathname
+
     @name: Symbol
     @signature_root_dir: Pathname
+
+    def initialize: (Symbol name) { (RakeTask) -> void } -> void
+    def define_setup_task: () -> void
+    def define_clean_task: () -> void
+    def define_generate_task: () -> void
+
+    private
+
+    def setup_signature_root_dir!: () -> void
   end
 end
