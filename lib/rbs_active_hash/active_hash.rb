@@ -141,7 +141,7 @@ module RbsActiveHash
         elsif type == NilClass
           "nil"
         elsif type.is_a? Class
-          type.name
+          type.name.to_s
         elsif type.is_a? Array
           types = type.map { |t| stringify_type(t) }.uniq.sort
           if types.delete("nil")
