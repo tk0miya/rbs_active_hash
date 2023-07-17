@@ -1,13 +1,13 @@
 module RbsActiveHash
   module ActiveHash
-    def self.user_defined_model?: (Class klass) -> bool
-    def self.class_to_rbs: (Class klass) -> String
+    def self.user_defined_model?: (singleton(ActiveHash::Base) klass) -> bool
+    def self.class_to_rbs: (singleton(ActiveHash::Base) klass) -> String
 
     class Generator
-      attr_reader klass: Class
+      attr_reader klass: singleton(ActiveHash::Base)
       attr_reader klass_name: String
 
-      def initialize: (Class class) -> void
+      def initialize: (singleton(ActiveHash::Base) klass) -> void
       def generate: () -> String
 
       private
