@@ -121,7 +121,7 @@ module RbsActiveHash
         method_types = Hash.new { |hash, key| hash[key] = [] }
         (klass.data || []).each do |record|
           record.symbolize_keys.each do |key, value|
-            method_types[key] << value.class
+            method_types[key] << identify_class(value)
           end
         end
         method_types.transform_values(&:uniq)
@@ -133,6 +133,20 @@ module RbsActiveHash
 
       def footer
         "end\n" * klass.module_parents.size
+      end
+
+      def identify_class(obj)
+        case obj
+        when Array
+          args = obj.map(&:class)
+          "#{obj.class}[#{stringify_type(args)}]"
+        when Hash
+          keys = obj.keys.map(&:class)
+          values = obj.values.map(&:class)
+          "#{obj.class}[#{stringify_type(keys)}, #{stringify_type(values)}]"
+        else
+          obj.class
+        end
       end
 
       def stringify_type(type)
