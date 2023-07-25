@@ -3,6 +3,7 @@ PATH
   specs:
     rbs_active_hash (1.0.2)
       active_hash
+      rbs
       rbs_rails
 
 GEM
