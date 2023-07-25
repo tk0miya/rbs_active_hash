@@ -22,6 +22,7 @@ module RbsActiveHash
       def valid_field_name?: (String) -> boolish
       def footer: () -> String
 
+      def identify_class: (untyped value) -> (String | singleton(Class))
       def stringify_type: (untyped type) -> String
     end
   end

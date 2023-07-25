@@ -9,9 +9,33 @@ class Colour < ActiveHash::Base
   enum_accessor :name
 
   self.data = [
-    { id: 1, name: "red", code: "#ff0000", order: 1, other: "misc" },
-    { id: 2, name: "green", code: "#00ff00", order: 2, other: nil },
-    { id: 3, name: "blue", code: "#0000ff", order: 3, other: true }
+    {
+      id: 1,
+      name: "red",
+      code: "#ff0000",
+      palette: [255, 0, 0],
+      palette_h: { red: 255, green: 0, blue: 0 },
+      order: 1,
+      other: "misc"
+    },
+    {
+      id: 2,
+      name: "green",
+      code: "#00ff00",
+      palette: [0, 255, 0],
+      palette_h: { red: 0, green: 255, blue: 0 },
+      order: 2,
+      other: nil
+    },
+    {
+      id: 3,
+      name: "blue",
+      code: "#0000ff",
+      palette: [0, 0, 255],
+      palette_h: { red: 0, green: 0, blue: 255 },
+      order: 3,
+      other: true
+    }
   ]
 end
 
@@ -57,6 +81,18 @@ RSpec.describe RbsActiveHash::ActiveHash do
           def code?: () -> bool
           def self.find_by_code: (String value) -> self?
           def self.find_all_by_code: (String value) -> Array[self]
+
+          def palette: () -> Array[Integer]
+          def palette=: (Array[Integer] value) -> Array[Integer]
+          def palette?: () -> bool
+          def self.find_by_palette: (Array[Integer] value) -> self?
+          def self.find_all_by_palette: (Array[Integer] value) -> Array[self]
+
+          def palette_h: () -> Hash[Symbol, Integer]
+          def palette_h=: (Hash[Symbol, Integer] value) -> Hash[Symbol, Integer]
+          def palette_h?: () -> bool
+          def self.find_by_palette_h: (Hash[Symbol, Integer] value) -> self?
+          def self.find_all_by_palette_h: (Hash[Symbol, Integer] value) -> Array[self]
 
           def order: () -> Integer
           def order=: (Integer value) -> Integer
