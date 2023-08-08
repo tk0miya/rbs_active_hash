@@ -16,6 +16,10 @@ module RbsActiveHash
       def header: () -> String
       def enum_decls: () -> String?
       def constants: () -> Array[String]
+      def association_decls: () -> String?
+      def has_many_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
+      def has_one_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
+      def belongs_to_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
       def method_decls: () -> String
       def method_names: () -> Array[Symbol]
       def method_types: () -> Hash[Symbol, untyped]
