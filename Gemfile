@@ -9,6 +9,10 @@ gem "rake", "~> 13.0"
 
 gem "rubocop", "~> 1.55"
 
+group :test do
+  gem "activerecord"
+end
+
 group :development do
   gem "rspec", require: false
   gem "rspec-daemon", require: false
@@ -18,6 +22,5 @@ end
 
 # dependencies only for signature
 group :signature do
-  gem "activerecord"
   gem "railties"
 end

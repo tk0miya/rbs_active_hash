@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require "active_hash"
-require "rbs_active_hash/active_hash"
+require "active_record"
+require "rbs_active_hash"
 
 class Colour < ActiveHash::Base
   include ActiveHash::Enum
@@ -39,6 +40,27 @@ class Colour < ActiveHash::Base
   ]
 end
 
+class Item < ActiveRecord::Base
+end
+
+class Job < ActiveRecord::Base
+end
+
+class Group < ActiveRecord::Base
+end
+
+class GamePlayer < ActiveHash::Base
+  include ActiveHash::Associations
+
+  has_many :items
+  has_one :job
+  belongs_to :team, class_name: "Group"
+
+  self.data = [
+    { id: 1, name: "Alice", team_id: 1 }
+  ]
+end
+
 RSpec.describe RbsActiveHash::ActiveHash do
   describe ".user_defined_model?" do
     subject { described_class.user_defined_model?(klass) }
@@ -59,58 +81,95 @@ RSpec.describe RbsActiveHash::ActiveHash do
   describe ".class_to_rbs" do
     subject { described_class.class_to_rbs(klass) }
 
-    let(:klass) { Colour }
-    let(:expected) do
-      <<~RBS
-        class Colour < ::ActiveHash::Base
-          include ActiveHash::Enum
-          extend ActiveHash::Enum::Methods
+    context "When enum model given" do
+      let(:klass) { Colour }
+      let(:expected) do
+        <<~RBS
+          class Colour < ::ActiveHash::Base
+            include ActiveHash::Enum
+            extend ActiveHash::Enum::Methods
 
-          RED: instance
-          GREEN: instance
-          BLUE: instance
+            RED: instance
+            GREEN: instance
+            BLUE: instance
 
-          def name: () -> String
-          def name=: (String value) -> String
-          def name?: () -> bool
-          def self.find_by_name: (String value) -> self?
-          def self.find_all_by_name: (String value) -> Array[self]
+            def name: () -> String
+            def name=: (String value) -> String
+            def name?: () -> bool
+            def self.find_by_name: (String value) -> self?
+            def self.find_all_by_name: (String value) -> Array[self]
 
-          def code: () -> String
-          def code=: (String value) -> String
-          def code?: () -> bool
-          def self.find_by_code: (String value) -> self?
-          def self.find_all_by_code: (String value) -> Array[self]
+            def code: () -> String
+            def code=: (String value) -> String
+            def code?: () -> bool
+            def self.find_by_code: (String value) -> self?
+            def self.find_all_by_code: (String value) -> Array[self]
 
-          def palette: () -> Array[Integer]
-          def palette=: (Array[Integer] value) -> Array[Integer]
-          def palette?: () -> bool
-          def self.find_by_palette: (Array[Integer] value) -> self?
-          def self.find_all_by_palette: (Array[Integer] value) -> Array[self]
+            def palette: () -> Array[Integer]
+            def palette=: (Array[Integer] value) -> Array[Integer]
+            def palette?: () -> bool
+            def self.find_by_palette: (Array[Integer] value) -> self?
+            def self.find_all_by_palette: (Array[Integer] value) -> Array[self]
 
-          def palette_h: () -> Hash[Symbol, Integer]
-          def palette_h=: (Hash[Symbol, Integer] value) -> Hash[Symbol, Integer]
-          def palette_h?: () -> bool
-          def self.find_by_palette_h: (Hash[Symbol, Integer] value) -> self?
-          def self.find_all_by_palette_h: (Hash[Symbol, Integer] value) -> Array[self]
+            def palette_h: () -> Hash[Symbol, Integer]
+            def palette_h=: (Hash[Symbol, Integer] value) -> Hash[Symbol, Integer]
+            def palette_h?: () -> bool
+            def self.find_by_palette_h: (Hash[Symbol, Integer] value) -> self?
+            def self.find_all_by_palette_h: (Hash[Symbol, Integer] value) -> Array[self]
 
-          def order: () -> Integer
-          def order=: (Integer value) -> Integer
-          def order?: () -> bool
-          def self.find_by_order: (Integer value) -> self?
-          def self.find_all_by_order: (Integer value) -> Array[self]
+            def order: () -> Integer
+            def order=: (Integer value) -> Integer
+            def order?: () -> bool
+            def self.find_by_order: (Integer value) -> self?
+            def self.find_all_by_order: (Integer value) -> Array[self]
 
-          def other: () -> (String | bool)?
-          def other=: ((String | bool)? value) -> (String | bool)?
-          def other?: () -> bool
-          def self.find_by_other: ((String | bool)? value) -> self?
-          def self.find_all_by_other: ((String | bool)? value) -> Array[self]
-        end
-      RBS
+            def other: () -> (String | bool)?
+            def other=: ((String | bool)? value) -> (String | bool)?
+            def other?: () -> bool
+            def self.find_by_other: ((String | bool)? value) -> self?
+            def self.find_all_by_other: ((String | bool)? value) -> Array[self]
+          end
+        RBS
+      end
+
+      it "Generate type definition correctly" do
+        expect(subject).to eq expected
+      end
     end
 
-    it "Generate type definition correctly" do
-      expect(subject).to eq expected
+    context "When association model given" do
+      let(:klass) { GamePlayer }
+      let(:expected) do
+        <<~RBS
+          class GamePlayer < ::ActiveHash::Base
+            include ActiveHash::Associations
+            extend ActiveHash::Associations::Methods
+
+            def items: () -> Item::ActiveRecord_Relation
+            def item_ids: () -> Array[Integer]
+
+            def job: () -> Job
+            def team: () -> Group
+            def team=: (Integer) -> Integer
+
+            def name: () -> String
+            def name=: (String value) -> String
+            def name?: () -> bool
+            def self.find_by_name: (String value) -> self?
+            def self.find_all_by_name: (String value) -> Array[self]
+
+            def team_id: () -> Integer
+            def team_id=: (Integer value) -> Integer
+            def team_id?: () -> bool
+            def self.find_by_team_id: (Integer value) -> self?
+            def self.find_all_by_team_id: (Integer value) -> Array[self]
+          end
+        RBS
+      end
+
+      it "Generate type definition correctly" do
+        expect(subject).to eq expected
+      end
     end
   end
 end

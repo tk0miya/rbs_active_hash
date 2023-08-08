@@ -40,6 +40,7 @@ module RbsActiveHash
         <<~RBS
           #{header}
           #{enum_decls}
+          #{association_decls}
           #{method_decls}
           #{footer}
         RBS
@@ -95,6 +96,58 @@ module RbsActiveHash
           constant.upcase!
           constant
         end
+      end
+
+      def association_decls # rubocop:disable Metrics/AbcSize
+        return unless klass.ancestors.include? ::ActiveHash::Associations
+
+        path, = Object.const_source_location(klass_name)
+        return unless path
+
+        parser = Associations::Parser.new
+        parser.parse(IO.read(path.to_s), klass_name.split("::").map(&:to_sym))
+
+        <<~RBS
+          include ActiveHash::Associations
+          extend ActiveHash::Associations::Methods
+
+          #{has_many_decls(parser.has_many)}
+          #{has_one_decls(parser.has_one)}
+          #{belongs_to_decls(parser.belongs_to)}
+        RBS
+      end
+
+      def has_many_decls(definitions) # rubocop:disable Naming/PredicateName
+        definitions.map do |definition|
+          association_id, options = definition
+          class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
+
+          <<~RBS
+            def #{association_id}: () -> #{class_name}::ActiveRecord_Relation
+            def #{association_id.to_s.underscore.singularize}_ids: () -> Array[Integer]
+          RBS
+        end.join("\n")
+      end
+
+      def has_one_decls(definitions) # rubocop:disable Naming/PredicateName
+        definitions.map do |definition|
+          association_id, options = definition
+          class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
+
+          "def #{association_id}: () -> #{class_name}"
+        end.join("\n")
+      end
+
+      def belongs_to_decls(definitions)
+        definitions.map do |definition|
+          association_id, options = definition
+          class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
+
+          <<~RBS
+            def #{association_id}: () -> #{class_name}
+            def #{association_id}=: (Integer) -> Integer
+          RBS
+        end.join("\n")
       end
 
       def method_decls
