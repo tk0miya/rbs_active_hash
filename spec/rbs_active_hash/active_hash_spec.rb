@@ -43,6 +43,9 @@ end
 class Item < ActiveRecord::Base
 end
 
+class Skill
+end
+
 class Job < ActiveRecord::Base
 end
 
@@ -53,6 +56,7 @@ class GamePlayer < ActiveHash::Base
   include ActiveHash::Associations
 
   has_many :items
+  has_many :skills
   has_one :job
   belongs_to :team, class_name: "Group"
 
@@ -147,6 +151,9 @@ RSpec.describe RbsActiveHash::ActiveHash do
 
             def items: () -> Item::ActiveRecord_Relation
             def item_ids: () -> Array[Integer]
+
+            def skills: () -> Array[Skill]
+            def skill_ids: () -> Array[Integer]
 
             def job: () -> Job
             def team: () -> Group
