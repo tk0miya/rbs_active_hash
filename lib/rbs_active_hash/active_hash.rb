@@ -120,10 +120,16 @@ module RbsActiveHash
       def has_many_decls(definitions) # rubocop:disable Naming/PredicateName
         definitions.map do |definition|
           association_id, options = definition
-          class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
+          klass = options.fetch(:class_name, association_id.to_s.classify).constantize
+
+          relation = if Object.const_defined?(:ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
+                       "#{klass.name}::ActiveRecord_Relation"
+                     else
+                       "Array[#{klass.name}]"
+                     end
 
           <<~RBS
-            def #{association_id}: () -> #{class_name}::ActiveRecord_Relation
+            def #{association_id}: () -> #{relation}
             def #{association_id.to_s.underscore.singularize}_ids: () -> Array[Integer]
           RBS
         end.join("\n")
