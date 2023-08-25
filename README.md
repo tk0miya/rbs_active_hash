@@ -7,7 +7,7 @@ rbs_active_hash is a generator for [ActiveHash](https://github.com/active-hash/a
 Add a new entry to your Gemfile and run `bundle install`:
 
     group :development do
-      gem 'rbs_active_hash'
+      gem 'rbs_active_hash', require: false
     end
 
 After the installation, please run rake task generator:
