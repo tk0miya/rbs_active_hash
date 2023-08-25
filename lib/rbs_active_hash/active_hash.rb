@@ -98,7 +98,7 @@ module RbsActiveHash
         end
       end
 
-      def association_decls # rubocop:disable Metrics/AbcSize
+      def association_decls
         return unless klass.ancestors.include? ::ActiveHash::Associations
 
         path, = Object.const_source_location(klass_name)

@@ -3,7 +3,6 @@
 require "pathname"
 require "rake"
 require "rake/tasklib"
-require "rbs_active_hash"
 
 module RbsActiveHash
   class RakeTask < Rake::TaskLib
@@ -40,6 +39,8 @@ module RbsActiveHash
     def define_generate_task
       desc "Generate RBS files for ActiveHash models"
       task("#{name}:generate": :environment) do
+        require "rbs_active_hash"  # load RbsActiveHash lazily
+
         Rails.application.eager_load!
 
         ::ActiveHash::Base.descendants.each do |klass|
