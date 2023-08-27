@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rbs_active_hash (1.2.1)
+    rbs_active_hash (1.2.2)
       active_hash
       rbs
       rbs_rails
