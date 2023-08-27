@@ -79,7 +79,7 @@ module RbsActiveHash
           include ActiveHash::Enum
           extend ActiveHash::Enum::Methods
 
-          #{constants.map { |c| "#{c}: instance" }.join("\n")}
+          #{constants.map { |c| "#{c}: #{klass_name}" }.join("\n")}
         RBS
       end
 
