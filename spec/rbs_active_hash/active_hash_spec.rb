@@ -93,9 +93,9 @@ RSpec.describe RbsActiveHash::ActiveHash do
             include ActiveHash::Enum
             extend ActiveHash::Enum::Methods
 
-            RED: instance
-            GREEN: instance
-            BLUE: instance
+            RED: Colour
+            GREEN: Colour
+            BLUE: Colour
 
             def name: () -> String
             def name=: (String value) -> String
