@@ -13,6 +13,7 @@ module RbsActiveHash
 
       private
 
+      def format: (String) -> String
       def klass_decl: () -> String
       def header: () -> String
       def enum_decls: () -> String?
