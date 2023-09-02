@@ -7,5 +7,5 @@ target :lib do
 
   check "lib"
 
-  configure_code_diagnostics(D::Ruby.lenient)
+  configure_code_diagnostics(D::Ruby.strict)
 end
