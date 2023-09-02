@@ -28,7 +28,7 @@ module RbsActiveHash
       end
 
       def generate
-        if klass.ancestors.include? ::ActiveFile::Base
+        if klass < ::ActiveFile::Base
           begin
             klass.reload
           rescue StandardError
