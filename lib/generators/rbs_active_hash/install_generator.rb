@@ -6,8 +6,10 @@ module RbsActiveHash
   class InstallGenerator < Rails::Generators::Base
     def create_raketask
       create_file "lib/tasks/rbs_active_hash.rake", <<~RUBY
+        # frozen_string_literal: true
+
         begin
-          require 'rbs_active_hash/rake_task'
+          require "rbs_active_hash/rake_task"
 
           RbsActiveHash::RakeTask.new
         rescue LoadError
