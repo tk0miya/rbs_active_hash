@@ -6,6 +6,7 @@ module RbsActiveHash
     class Generator
       attr_reader klass: singleton(ActiveHash::Base)
       attr_reader klass_name: String
+      attr_reader parser: ActiveHash::Parser::Parser
 
       def initialize: (singleton(ActiveHash::Base) klass) -> void
       def generate: () -> String
@@ -16,6 +17,7 @@ module RbsActiveHash
       def header: () -> String
       def enum_decls: () -> String?
       def constants: () -> Array[String]
+      def scope_decls: () -> String?
       def association_decls: () -> String?
       def has_many_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
       def has_one_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String

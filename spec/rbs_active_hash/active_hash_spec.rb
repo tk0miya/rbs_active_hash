@@ -65,6 +65,10 @@ class GamePlayer < ActiveHash::Base
   ]
 end
 
+class Team < ActiveHash::Base
+  scope :red, -> { where(colour: "red") }
+end
+
 RSpec.describe RbsActiveHash::ActiveHash do
   describe ".user_defined_model?" do
     subject { described_class.user_defined_model?(klass) }
@@ -170,6 +174,21 @@ RSpec.describe RbsActiveHash::ActiveHash do
             def team_id?: () -> bool
             def self.find_by_team_id: (Integer value) -> self?
             def self.find_all_by_team_id: (Integer value) -> Array[self]
+          end
+        RBS
+      end
+
+      it "Generate type definition correctly" do
+        expect(subject).to eq expected
+      end
+    end
+
+    context "When scope model given" do
+      let(:klass) { Team }
+      let(:expected) do
+        <<~RBS
+          class Team < ::ActiveHash::Base
+            def self.red: () -> ActiveHash::Relation[instance]
           end
         RBS
       end

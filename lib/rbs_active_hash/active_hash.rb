@@ -15,11 +15,17 @@ module RbsActiveHash
     end
 
     class Generator
-      attr_reader :klass, :klass_name
+      attr_reader :klass, :klass_name, :parser
 
       def initialize(klass)
         @klass = klass
         @klass_name = RbsRails::Util.module_name(klass)
+        @parser = ActiveHash::Parser::Parser.new
+
+        path, = Object.const_source_location(klass_name)
+        return unless path
+
+        @parser.parse(IO.read(path.to_s), klass_name.split("::").map(&:to_sym))
       end
 
       def generate
@@ -40,6 +46,7 @@ module RbsActiveHash
         <<~RBS
           #{header}
           #{enum_decls}
+          #{scope_decls}
           #{association_decls}
           #{method_decls}
           #{footer}
@@ -98,14 +105,18 @@ module RbsActiveHash
         end
       end
 
+      def scope_decls
+        return if parser.scopes.empty?
+
+        parser.scopes.map do |scope_id, _|
+          <<~RBS
+            def self.#{scope_id}: () -> ActiveHash::Relation[instance]
+          RBS
+        end.join("\n")
+      end
+
       def association_decls
         return unless klass.ancestors.include? ::ActiveHash::Associations
-
-        path, = Object.const_source_location(klass_name)
-        return unless path
-
-        parser = ActiveHash::Parser::Parser.new
-        parser.parse(IO.read(path.to_s), klass_name.split("::").map(&:to_sym))
 
         <<~RBS
           include ActiveHash::Associations
