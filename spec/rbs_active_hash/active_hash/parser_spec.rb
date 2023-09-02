@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "active_hash"
-require "rbs_active_hash/associations"
+require "rbs_active_hash"
 
-RSpec.describe RbsActiveHash::Associations::Parser do
+RSpec.describe RbsActiveHash::ActiveHash::Parser::Parser do
   describe ".parse" do
     subject { parser.parse(string, target) }
 
@@ -31,6 +31,7 @@ RSpec.describe RbsActiveHash::Associations::Parser do
 
         class Mod::SubMod::Klass
           belongs_to :qux
+          scope :quux, -> { where(quux: true) }
         end
 
         module Other
