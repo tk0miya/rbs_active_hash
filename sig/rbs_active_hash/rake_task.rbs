@@ -6,7 +6,7 @@ module RbsActiveHash
     @name: Symbol
     @signature_root_dir: Pathname
 
-    def initialize: (Symbol name) { (RakeTask) -> void } -> void
+    def initialize: (?Symbol name) { (RakeTask) -> void } -> void
     def define_setup_task: () -> void
     def define_clean_task: () -> void
     def define_generate_task: () -> void
