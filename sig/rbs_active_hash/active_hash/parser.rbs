@@ -4,6 +4,9 @@ module RbsActiveHash
       class AssociationDefinition < RBS::AST::Members::Include
       end
 
+      class ScopeDefinition < RBS::AST::Members::Include
+      end
+
       class RB < RBS::Prototype::RB
       end
 
@@ -11,11 +14,13 @@ module RbsActiveHash
         attr_reader has_many: Array[[Symbol, Hash[untyped, untyped]]]
         attr_reader has_one: Array[[Symbol, Hash[untyped, untyped]]]
         attr_reader belongs_to: Array[[Symbol, Hash[untyped, untyped]]]
+        attr_reader scopes: Array[[Symbol, Hash[untyped, untyped]]]
 
         def initialize: () -> void
         def parse: (String string, Array[Symbol] target) -> void
         def process: (RBS::AST::Declarations::t | RBS::AST::Members::t node, Array[Symbol] target) -> void
         def process_association_definition: (AssociationDefinition node) -> void
+        def process_scope_definition: (AssociationDefinition node) -> void
         def node_to_literal: (untyped node) -> untyped
       end
     end

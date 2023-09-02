@@ -31,6 +31,7 @@ RSpec.describe RbsActiveHash::ActiveHash::Parser::Parser do
 
         class Mod::SubMod::Klass
           belongs_to :qux
+          scope :quux, -> { where(quux: true) }
         end
 
         module Other

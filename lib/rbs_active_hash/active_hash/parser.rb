@@ -8,6 +8,9 @@ module RbsActiveHash
       class AssociationDefinition < RBS::AST::Members::Include
       end
 
+      class ScopeDefinition < RBS::AST::Members::Include
+      end
+
       class RB < RBS::Prototype::RB
         def process(node, decls:, comments:, context:)
           case node.type
@@ -15,6 +18,14 @@ module RbsActiveHash
             case node.children.first
             when :has_many, :has_one, :belongs_to
               decls << AssociationDefinition.new(
+                name: RBS::TypeName.new(name: node.children.first, namespace: RBS::Namespace.root),
+                args: node.children[1],
+                annotations: [],
+                location: nil,
+                comment: nil
+              )
+            when :scope
+              decls << ScopeDefinition.new(
                 name: RBS::TypeName.new(name: node.children.first, namespace: RBS::Namespace.root),
                 args: node.children[1],
                 annotations: [],
@@ -31,12 +42,13 @@ module RbsActiveHash
       end
 
       class Parser
-        attr_reader :has_many, :has_one, :belongs_to
+        attr_reader :has_many, :has_one, :belongs_to, :scopes
 
         def initialize
           @has_many = []
           @has_one = []
           @belongs_to = []
+          @scopes = []
         end
 
         def parse(string, target)
@@ -58,6 +70,8 @@ module RbsActiveHash
             end
           when AssociationDefinition
             process_association_definition(node) if target.empty?
+          when ScopeDefinition
+            process_scope_definition(node) if target.empty?
           end
         end
 
@@ -75,6 +89,11 @@ module RbsActiveHash
           end
         end
 
+        def process_scope_definition(node)
+          scope_id, args = node_to_literal(node.args)
+          @scopes << [scope_id, args.to_h]
+        end
+
         def node_to_literal(node)
           case node.type
           when :LIST
@@ -83,6 +102,8 @@ module RbsActiveHash
             node.children.first
           when :HASH
             Hash[*node_to_literal(node.children.first)]
+          when :LAMBDA
+            {}  # Convert to empty hash because rbs_active_hash does not process lambda
           else
             node
           end
