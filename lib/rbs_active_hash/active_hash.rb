@@ -104,7 +104,7 @@ module RbsActiveHash
         path, = Object.const_source_location(klass_name)
         return unless path
 
-        parser = Associations::Parser.new
+        parser = ActiveHash::Parser::Parser.new
         parser.parse(IO.read(path.to_s), klass_name.split("::").map(&:to_sym))
 
         <<~RBS

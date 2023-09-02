@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "active_hash"
-require "rbs_active_hash/associations"
+require "rbs_active_hash"
 
-RSpec.describe RbsActiveHash::Associations::Parser do
+RSpec.describe RbsActiveHash::ActiveHash::Parser::Parser do
   describe ".parse" do
     subject { parser.parse(string, target) }
 

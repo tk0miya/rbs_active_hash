@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "rbs_active_hash/active_hash"
-require_relative "rbs_active_hash/associations"
+require_relative "rbs_active_hash/active_hash/parser"
 require_relative "rbs_active_hash/version"
 
 module RbsActiveHash
