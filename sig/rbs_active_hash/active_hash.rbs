@@ -25,7 +25,7 @@ module RbsActiveHash
       def method_decls: () -> String
       def method_names: () -> Array[Symbol]
       def method_types: () -> Hash[Symbol, untyped]
-      def valid_field_name?: (String) -> boolish
+      def valid_field_name?: (String | Symbol) -> boolish
       def footer: () -> String
 
       def identify_class: (untyped value) -> (String | singleton(Class))

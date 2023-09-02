@@ -20,7 +20,7 @@ module RbsActiveHash
         def parse: (String string, Array[Symbol] target) -> void
         def process: (RBS::AST::Declarations::t | RBS::AST::Members::t node, Array[Symbol] target) -> void
         def process_association_definition: (AssociationDefinition node) -> void
-        def process_scope_definition: (AssociationDefinition node) -> void
+        def process_scope_definition: (ScopeDefinition node) -> void
         def node_to_literal: (untyped node) -> untyped
       end
     end
