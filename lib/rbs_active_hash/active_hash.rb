@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rbs"
-require "rbs_rails/util"
 require "active_hash"
 
 module RbsActiveHash
@@ -19,7 +18,7 @@ module RbsActiveHash
 
       def initialize(klass)
         @klass = klass
-        @klass_name = RbsRails::Util.module_name(klass)
+        @klass_name = klass.name || ""
         @parser = ActiveHash::Parser::Parser.new
 
         path, = Object.const_source_location(klass_name)
@@ -37,10 +36,17 @@ module RbsActiveHash
           end
         end
 
-        RbsRails::Util.format_rbs klass_decl
+        format(klass_decl)
       end
 
       private
+
+      def format(rbs)
+        parsed = RBS::Parser.parse_signature(rbs)
+        StringIO.new.tap do |out|
+          RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
+        end.string
+      end
 
       def klass_decl
         <<~RBS
@@ -62,7 +68,7 @@ module RbsActiveHash
           when Class
             # @type var superclass: Class
             superclass = _ = mod_object.superclass
-            superclass_name = RbsRails::Util.module_name(superclass)
+            superclass_name = superclass.name || "Object"
 
             "class #{mod_name} < ::#{superclass_name}"
           when Module

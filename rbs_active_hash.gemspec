@@ -29,7 +29,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "active_hash"
   spec.add_dependency "rbs"
-  spec.add_dependency "rbs_rails"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
