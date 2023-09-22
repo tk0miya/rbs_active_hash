@@ -104,38 +104,38 @@ RSpec.describe RbsActiveHash::ActiveHash do
             def name: () -> String
             def name=: (String value) -> String
             def name?: () -> bool
-            def self.find_by_name: (String value) -> self?
-            def self.find_all_by_name: (String value) -> Array[self]
+            def self.find_by_name: (String value) -> instance?
+            def self.find_all_by_name: (String value) -> Array[instance]
 
             def code: () -> String
             def code=: (String value) -> String
             def code?: () -> bool
-            def self.find_by_code: (String value) -> self?
-            def self.find_all_by_code: (String value) -> Array[self]
+            def self.find_by_code: (String value) -> instance?
+            def self.find_all_by_code: (String value) -> Array[instance]
 
             def palette: () -> Array[Integer]
             def palette=: (Array[Integer] value) -> Array[Integer]
             def palette?: () -> bool
-            def self.find_by_palette: (Array[Integer] value) -> self?
-            def self.find_all_by_palette: (Array[Integer] value) -> Array[self]
+            def self.find_by_palette: (Array[Integer] value) -> instance?
+            def self.find_all_by_palette: (Array[Integer] value) -> Array[instance]
 
             def palette_h: () -> Hash[Symbol, Integer]
             def palette_h=: (Hash[Symbol, Integer] value) -> Hash[Symbol, Integer]
             def palette_h?: () -> bool
-            def self.find_by_palette_h: (Hash[Symbol, Integer] value) -> self?
-            def self.find_all_by_palette_h: (Hash[Symbol, Integer] value) -> Array[self]
+            def self.find_by_palette_h: (Hash[Symbol, Integer] value) -> instance?
+            def self.find_all_by_palette_h: (Hash[Symbol, Integer] value) -> Array[instance]
 
             def order: () -> Integer
             def order=: (Integer value) -> Integer
             def order?: () -> bool
-            def self.find_by_order: (Integer value) -> self?
-            def self.find_all_by_order: (Integer value) -> Array[self]
+            def self.find_by_order: (Integer value) -> instance?
+            def self.find_all_by_order: (Integer value) -> Array[instance]
 
             def other: () -> (String | bool)?
             def other=: ((String | bool)? value) -> (String | bool)?
             def other?: () -> bool
-            def self.find_by_other: ((String | bool)? value) -> self?
-            def self.find_all_by_other: ((String | bool)? value) -> Array[self]
+            def self.find_by_other: ((String | bool)? value) -> instance?
+            def self.find_all_by_other: ((String | bool)? value) -> Array[instance]
           end
         RBS
       end
@@ -166,14 +166,14 @@ RSpec.describe RbsActiveHash::ActiveHash do
             def name: () -> String
             def name=: (String value) -> String
             def name?: () -> bool
-            def self.find_by_name: (String value) -> self?
-            def self.find_all_by_name: (String value) -> Array[self]
+            def self.find_by_name: (String value) -> instance?
+            def self.find_all_by_name: (String value) -> Array[instance]
 
             def team_id: () -> Integer
             def team_id=: (Integer value) -> Integer
             def team_id?: () -> bool
-            def self.find_by_team_id: (Integer value) -> self?
-            def self.find_all_by_team_id: (Integer value) -> Array[self]
+            def self.find_by_team_id: (Integer value) -> instance?
+            def self.find_all_by_team_id: (Integer value) -> Array[instance]
           end
         RBS
       end

@@ -180,8 +180,8 @@ module RbsActiveHash
             def #{method}: () -> #{method_type}
             def #{method}=: (#{method_type} value) -> #{method_type}
             def #{method}?: () -> bool
-            def self.find_by_#{method}: (#{method_type} value) -> self?
-            def self.find_all_by_#{method}: (#{method_type} value) -> Array[self]
+            def self.find_by_#{method}: (#{method_type} value) -> instance?
+            def self.find_all_by_#{method}: (#{method_type} value) -> Array[instance]
           RBS
         end.join("\n")
       end
