@@ -101,6 +101,9 @@ RSpec.describe RbsActiveHash::ActiveHash do
             GREEN: Colour
             BLUE: Colour
 
+            def self.find: (Integer id) -> instance?
+                         | ...
+
             def name: () -> String
             def name=: (String value) -> String
             def name?: () -> bool
@@ -162,6 +165,9 @@ RSpec.describe RbsActiveHash::ActiveHash do
             def job: () -> Job
             def team: () -> Group
             def team=: (Integer) -> Integer
+
+            def self.find: (Integer id) -> instance?
+                         | ...
 
             def name: () -> String
             def name=: (String value) -> String
