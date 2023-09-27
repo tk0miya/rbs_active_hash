@@ -176,13 +176,17 @@ module RbsActiveHash
       def method_decls
         method_names.map do |method|
           method_type = stringify_type(method_types.fetch(method, "untyped"))
-          <<~RBS
-            def #{method}: () -> #{method_type}
-            def #{method}=: (#{method_type} value) -> #{method_type}
-            def #{method}?: () -> bool
-            def self.find_by_#{method}: (#{method_type} value) -> instance?
-            def self.find_all_by_#{method}: (#{method_type} value) -> Array[instance]
-          RBS
+          if method == :id
+            "def self.find: (#{method_type} id) -> instance? | ...\n"
+          else
+            <<~RBS
+              def #{method}: () -> #{method_type}
+              def #{method}=: (#{method_type} value) -> #{method_type}
+              def #{method}?: () -> bool
+              def self.find_by_#{method}: (#{method_type} value) -> instance?
+              def self.find_all_by_#{method}: (#{method_type} value) -> Array[instance]
+            RBS
+          end
         end.join("\n")
       end
 
@@ -190,7 +194,7 @@ module RbsActiveHash
         method_names = (klass.data || []).flat_map do |record|
           record.symbolize_keys.keys
         end
-        method_names.uniq.select { |k| k != :id && valid_field_name?(k) }
+        method_names.uniq.select { |k| valid_field_name?(k) }
       end
 
       def method_types
