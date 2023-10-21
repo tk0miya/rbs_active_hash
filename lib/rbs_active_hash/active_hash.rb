@@ -177,7 +177,7 @@ module RbsActiveHash
         method_names.map do |method|
           method_type = stringify_type(method_types.fetch(method, "untyped"))
           if method == :id
-            "def self.find: (#{method_type} id) -> instance? | ...\n"
+            "def self.find: (#{method_type} id) -> instance | ...\n"
           else
             <<~RBS
               def #{method}: () -> #{method_type}
