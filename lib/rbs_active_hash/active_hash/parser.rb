@@ -103,7 +103,7 @@ module RbsActiveHash
           when :HASH
             Hash[*node_to_literal(node.children.first)]
           when :LAMBDA
-            {}  # Convert to empty hash because rbs_active_hash does not process lambda
+            {} # Convert to empty hash because rbs_active_hash does not process lambda
           else
             node
           end
