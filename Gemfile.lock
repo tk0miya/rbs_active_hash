@@ -125,7 +125,7 @@ GEM
       rspec-mocks (~> 3.12.0)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
-    rspec-daemon (1.1.0)
+    rspec-daemon (1.1.1)
       rspec
     rspec-expectations (3.12.3)
       diff-lcs (>= 1.2.0, < 2.0)
