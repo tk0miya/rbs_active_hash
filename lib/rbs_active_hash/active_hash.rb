@@ -140,7 +140,7 @@ module RbsActiveHash
           klass = options.fetch(:class_name, association_id.to_s.classify).constantize
 
           relation = if Object.const_defined?(:ActiveRecord) && klass.ancestors.include?(ActiveRecord::Base)
-                       "#{klass.name}::ActiveRecord_Relation"
+                       "#{klass.name}::ActiveRecord_Associations_CollectionProxy"
                      else
                        "Array[#{klass.name}]"
                      end

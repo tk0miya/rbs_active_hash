@@ -156,7 +156,7 @@ RSpec.describe RbsActiveHash::ActiveHash do
             include ActiveHash::Associations
             extend ActiveHash::Associations::Methods
 
-            def items: () -> Item::ActiveRecord_Relation
+            def items: () -> Item::ActiveRecord_Associations_CollectionProxy
             def item_ids: () -> Array[Integer]
 
             def skills: () -> Array[Skill]
