@@ -114,9 +114,10 @@ module RbsActiveHash
       def scope_decls
         return if parser.scopes.empty?
 
-        parser.scopes.map do |scope_id, _|
-          <<~RBS
-            def self.#{scope_id}: () -> ActiveHash::Relation[instance]
+        parser.scopes.map do |scope_id, args|
+          arguments = args.map { |arg| "untyped #{arg}" }.join(", ")
+          <<~RBS.strip
+            def self.#{scope_id}: (#{arguments}) -> ActiveHash::Relation[instance]
           RBS
         end.join("\n")
       end
