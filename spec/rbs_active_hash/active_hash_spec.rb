@@ -67,6 +67,7 @@ end
 
 class Team < ActiveHash::Base
   scope :red, -> { where(colour: "red") }
+  scope :blue, ->(_obj) { where(colour: "blue") }
 end
 
 RSpec.describe RbsActiveHash::ActiveHash do
@@ -195,6 +196,7 @@ RSpec.describe RbsActiveHash::ActiveHash do
         <<~RBS
           class Team < ::ActiveHash::Base
             def self.red: () -> ActiveHash::Relation[instance]
+            def self.blue: (untyped _obj) -> ActiveHash::Relation[instance]
           end
         RBS
       end

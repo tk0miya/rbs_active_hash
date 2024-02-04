@@ -91,7 +91,7 @@ module RbsActiveHash
 
         def process_scope_definition(node)
           scope_id, args = node_to_literal(node.args)
-          @scopes << [scope_id, args.to_h]
+          @scopes << [scope_id, args]
         end
 
         def node_to_literal(node)
@@ -103,7 +103,7 @@ module RbsActiveHash
           when :HASH
             Hash[*node_to_literal(node.children.first)]
           when :LAMBDA
-            {} # Convert to empty hash because rbs_active_hash does not process lambda
+            node.children.first.children.first # Convert to the list of argument names
           else
             node
           end
