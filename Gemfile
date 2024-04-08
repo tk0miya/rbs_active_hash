@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in rbs_active_hash.gemspec
 gemspec
 
-gem "rake", "~> 13.1"
+gem "rake", "~> 13.2"
 
 gem "rubocop", "~> 1.62"
 
