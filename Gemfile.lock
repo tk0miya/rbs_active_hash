@@ -82,7 +82,7 @@ GEM
       racc
     psych (5.1.2)
       stringio
-    racc (1.7.3)
+    racc (1.8.0)
     rack (3.0.9.1)
     rack-session (2.0.0)
       rack (>= 3.0.0)
@@ -114,7 +114,7 @@ GEM
     rbs (3.1.3)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    regexp_parser (2.9.1)
+    regexp_parser (2.9.2)
     reline (0.4.3)
       io-console (~> 0.5)
     rexml (3.2.8)
@@ -134,7 +134,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.0)
-    rubocop (1.63.5)
+    rubocop (1.64.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -188,7 +188,7 @@ DEPENDENCIES
   rbs_active_hash!
   rspec
   rspec-daemon
-  rubocop (~> 1.63)
+  rubocop (~> 1.64)
   steep
 
 BUNDLED WITH
