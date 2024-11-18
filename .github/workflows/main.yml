@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '3.2'
+          - '3.3'
 
     steps:
     - uses: actions/checkout@v4
@@ -30,6 +30,6 @@ jobs:
     - name: Run rspec
       run: bundle exec rspec
     - name: Run rbs validate
-      run: bundle exec rbs -Isig validate --silent
+      run: bundle exec rbs -Isig validate
     - name: Run steep check
       run: bundle exec steep check
