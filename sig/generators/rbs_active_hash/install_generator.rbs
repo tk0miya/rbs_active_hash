@@ -1,3 +1,5 @@
+# Generated from lib/generators/rbs_active_hash/install_generator.rb with RBS::Inline
+
 module RbsActiveHash
   class InstallGenerator < Rails::Generators::Base
     def create_raketask: () -> void

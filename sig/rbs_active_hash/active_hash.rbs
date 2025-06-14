@@ -1,35 +1,68 @@
+# Generated from lib/rbs_active_hash/active_hash.rb with RBS::Inline
+
 module RbsActiveHash
   module ActiveHash
+    # @rbs klass: singleton(ActiveHash::Base)
     def self.user_defined_model?: (singleton(ActiveHash::Base) klass) -> bool
+
+    # @rbs klass: singleton(ActiveHash::Base) -> String
     def self.class_to_rbs: (singleton(ActiveHash::Base) klass) -> String
 
     class Generator
       attr_reader klass: singleton(ActiveHash::Base)
+
       attr_reader klass_name: String
+
       attr_reader parser: ActiveHash::Parser::Parser
 
+      # @rbs klass: singleton(ActiveHash::Base)
       def initialize: (singleton(ActiveHash::Base) klass) -> void
+
       def generate: () -> String
 
       private
 
-      def format: (String) -> String
+      # @rbs rbs: String
+      def format: (String rbs) -> String
+
       def klass_decl: () -> String
+
       def header: () -> String
+
+      def module_names: () -> String
+
       def enum_decls: () -> String?
+
       def constants: () -> Array[String]
+
       def scope_decls: () -> String?
+
       def association_decls: () -> String?
-      def has_many_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
-      def has_one_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
-      def belongs_to_decls: (Array[[Symbol, Hash[untyped, untyped]]]) -> String
+
+      # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
+      def has_many_decls: (Array[[ Symbol, Hash[untyped, untyped] ]] definitions) -> String
+
+      # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
+      def has_one_decls: (Array[[ Symbol, Hash[untyped, untyped] ]] definitions) -> String
+
+      # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
+      def belongs_to_decls: (Array[[ Symbol, Hash[untyped, untyped] ]] definitions) -> String
+
       def method_decls: () -> String
+
       def method_names: () -> Array[Symbol]
+
       def method_types: () -> Hash[Symbol, untyped]
-      def valid_field_name?: (String | Symbol) -> boolish
+
+      # @rbs name: String | Symbol
+      def valid_field_name?: (String | Symbol name) -> boolish
+
       def footer: () -> String
 
-      def identify_class: (untyped value) -> (String | singleton(Class))
+      # @rbs obj: untyped
+      def identify_class: (untyped obj) -> (String | singleton(Class))
+
+      # @rbs type: untyped
       def stringify_type: (untyped type) -> String
     end
   end

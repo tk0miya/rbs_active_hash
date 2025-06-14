@@ -1,3 +1,5 @@
+# Generated from lib/rbs_active_hash/active_hash/parser.rb with RBS::Inline
+
 module RbsActiveHash
   module ActiveHash
     module Parser
@@ -8,19 +10,36 @@ module RbsActiveHash
       end
 
       class RB < RBS::Prototype::RB
+        # @rbs override
+        def process: ...
       end
 
       class Parser
-        attr_reader has_many: Array[[Symbol, Hash[untyped, untyped]]]
-        attr_reader has_one: Array[[Symbol, Hash[untyped, untyped]]]
-        attr_reader belongs_to: Array[[Symbol, Hash[untyped, untyped]]]
-        attr_reader scopes: Array[[Symbol, Hash[untyped, untyped]]]
+        attr_reader has_many: Array[[ Symbol, Hash[untyped, untyped] ]]
+
+        attr_reader has_one: Array[[ Symbol, Hash[untyped, untyped] ]]
+
+        attr_reader belongs_to: Array[[ Symbol, Hash[untyped, untyped] ]]
+
+        attr_reader scopes: Array[[ Symbol, Hash[untyped, untyped] ]]
 
         def initialize: () -> void
+
+        # @rbs string: String
+        # @rbs target: Array[Symbol]
         def parse: (String string, Array[Symbol] target) -> void
+
+        # @rbs node: RBS::AST::Declarations::t | RBS::AST::Members::t
+        # @rbs target: Array[Symbol]
         def process: (RBS::AST::Declarations::t | RBS::AST::Members::t node, Array[Symbol] target) -> void
+
+        # @rbs node: AssociationDefinition
         def process_association_definition: (AssociationDefinition node) -> void
+
+        # @rbs node: ScopeDefinition
         def process_scope_definition: (ScopeDefinition node) -> void
+
+        # @rbs node: untyped
         def node_to_literal: (untyped node) -> untyped
       end
     end

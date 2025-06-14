@@ -4,7 +4,9 @@
     },
     "rbs-helper.signature-directory": "sig",
     "cSpell.words": [
+        "boolish",
         "Cyclomatic",
+        "klass",
         "rubygems",
         "tk0miya"
     ]

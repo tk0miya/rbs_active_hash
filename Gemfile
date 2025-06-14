@@ -7,7 +7,7 @@ gemspec
 
 gem "rake", "~> 13.3"
 
-gem "rubocop", "~> 1.76"
+gem "rubocop", "~> 1.74"
 
 group :test do
   gem "activerecord"
@@ -17,6 +17,7 @@ group :development do
   gem "rspec", require: false
   gem "rspec-daemon", require: false
 
+  gem "rbs-inline", require: false
   gem "steep"
 end
 
