@@ -6,8 +6,11 @@
     "cSpell.words": [
         "boolish",
         "Cyclomatic",
+        "FCALL",
         "klass",
+        "raketask",
         "rubygems",
-        "tk0miya"
+        "tk0miya",
+        "VCALL"
     ]
 }
