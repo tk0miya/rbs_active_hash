@@ -1,6 +1,6 @@
+# Generated from lib/rbs_active_hash.rb with RBS::Inline
+
 module RbsActiveHash
   class Error < StandardError
   end
-
-  VERSION: String
 end

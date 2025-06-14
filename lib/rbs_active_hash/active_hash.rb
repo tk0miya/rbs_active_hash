@@ -5,18 +5,23 @@ require "active_hash"
 
 module RbsActiveHash
   module ActiveHash
-    def self.user_defined_model?(klass)
+    # @rbs klass: singleton(ActiveHash::Base)
+    def self.user_defined_model?(klass) #: bool
       klass.name !~ /^Active(Hash|File|JSON|Yaml)::/
     end
 
-    def self.class_to_rbs(klass)
+    # @rbs klass: singleton(ActiveHash::Base) -> String
+    def self.class_to_rbs(klass) #: String
       Generator.new(klass).generate
     end
 
     class Generator
-      attr_reader :klass, :klass_name, :parser
+      attr_reader :klass #: singleton(ActiveHash::Base)
+      attr_reader :klass_name #: String
+      attr_reader :parser #: ActiveHash::Parser::Parser
 
-      def initialize(klass)
+      # @rbs klass: singleton(ActiveHash::Base)
+      def initialize(klass) #: void
         @klass = klass
         @klass_name = klass.name || ""
         @parser = ActiveHash::Parser::Parser.new
@@ -27,7 +32,7 @@ module RbsActiveHash
         @parser.parse(IO.read(path.to_s), klass_name.split("::").map(&:to_sym))
       end
 
-      def generate
+      def generate #: String
         if klass < ::ActiveFile::Base
           begin
             klass.reload
@@ -41,14 +46,15 @@ module RbsActiveHash
 
       private
 
-      def format(rbs)
+      # @rbs rbs: String
+      def format(rbs) #: String
         parsed = RBS::Parser.parse_signature(rbs)
         StringIO.new.tap do |out|
           RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
         end.string
       end
 
-      def klass_decl
+      def klass_decl #: String
         <<~RBS
           #{header}
           #{enum_decls}
@@ -59,7 +65,7 @@ module RbsActiveHash
         RBS
       end
 
-      def header
+      def header #: String
         namespace = +""
         klass_name.split("::").map do |mod_name|
           namespace += "::#{mod_name}"
@@ -79,13 +85,13 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def module_names
+      def module_names #: String
         klass.module_parents.reverse[1..].map do |mod|
           mod.name.split("::").last
         end
       end
 
-      def enum_decls
+      def enum_decls #: String?
         return unless klass.ancestors.include? ::ActiveHash::Enum
 
         <<~RBS
@@ -96,7 +102,7 @@ module RbsActiveHash
         RBS
       end
 
-      def constants
+      def constants #: Array[String]
         enum_accessors = klass.instance_eval { @enum_accessors }
         return [] unless enum_accessors
 
@@ -111,7 +117,7 @@ module RbsActiveHash
         end
       end
 
-      def scope_decls
+      def scope_decls #: String?
         return if parser.scopes.empty?
 
         parser.scopes.map do |scope_id, args|
@@ -122,7 +128,7 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def association_decls
+      def association_decls #: String?
         return unless klass.ancestors.include? ::ActiveHash::Associations
 
         <<~RBS
@@ -135,7 +141,8 @@ module RbsActiveHash
         RBS
       end
 
-      def has_many_decls(definitions) # rubocop:disable Naming/PredicatePrefix
+      # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
+      def has_many_decls(definitions) #: String # rubocop:disable Naming/PredicateName
         definitions.map do |definition|
           association_id, options = definition
           klass = options.fetch(:class_name, association_id.to_s.classify).constantize
@@ -153,7 +160,8 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def has_one_decls(definitions) # rubocop:disable Naming/PredicatePrefix
+      # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
+      def has_one_decls(definitions) #: String # rubocop:disable Naming/PredicateName
         definitions.map do |definition|
           association_id, options = definition
           class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
@@ -162,7 +170,8 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def belongs_to_decls(definitions)
+      # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
+      def belongs_to_decls(definitions) #: String
         definitions.map do |definition|
           association_id, options = definition
           class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
@@ -174,7 +183,7 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def method_decls
+      def method_decls #: String
         method_names.map do |method|
           method_type = stringify_type(method_types.fetch(method, "untyped"))
           if method == :id
@@ -191,32 +200,34 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def method_names
+      def method_names #: Array[Symbol]
         method_names = (klass.data || []).flat_map do |record|
           record.symbolize_keys.keys
         end
         method_names.uniq.select { |k| valid_field_name?(k) }
       end
 
-      def method_types
-        method_types = Hash.new { |hash, key| hash[key] = [] }
+      def method_types #: Hash[Symbol, untyped]
+        method_types = Hash.new { |hash, key| hash[key] = [] } # steep:ignore
         (klass.data || []).each do |record|
           record.symbolize_keys.each do |key, value|
-            method_types[key] << identify_class(value)
+            method_types[key] << identify_class(value) # steep:ignore
           end
         end
         method_types.transform_values(&:uniq)
       end
 
-      def valid_field_name?(name)
+      # @rbs name: String | Symbol
+      def valid_field_name?(name) #: boolish
         name.to_s =~ /^[a-zA-Z_][a-zA-Z0-9_]*$/
       end
 
-      def footer
+      def footer #: String
         "end\n" * klass.module_parents.size
       end
 
-      def identify_class(obj)
+      # @rbs obj: untyped
+      def identify_class(obj) #: String | singleton(Class)
         case obj
         when Array
           args = obj.map(&:class)
@@ -230,7 +241,8 @@ module RbsActiveHash
         end
       end
 
-      def stringify_type(type)
+      # @rbs type: untyped
+      def stringify_type(type) #: String
         if [TrueClass, FalseClass].include?(type)
           "bool"
         elsif type == NilClass

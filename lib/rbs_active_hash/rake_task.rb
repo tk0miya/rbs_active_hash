@@ -6,9 +6,12 @@ require "rake/tasklib"
 
 module RbsActiveHash
   class RakeTask < Rake::TaskLib
-    attr_accessor :name, :signature_root_dir
+    attr_accessor :name #: Symbol
+    attr_accessor :signature_root_dir #: Pathname
 
-    def initialize(name = :"rbs:active_hash", &block)
+    # @rbs name: Symbol
+    # @rbs &block: (RakeTask) -> void
+    def initialize(name = :"rbs:active_hash", &block) #: void
       super()
 
       @name = name
@@ -22,21 +25,21 @@ module RbsActiveHash
       define_setup_task
     end
 
-    def define_setup_task
+    def define_setup_task #: void
       desc "Run all tasks of rbs_active_hash"
 
       deps = [:"#{name}:clean", :"#{name}:generate"]
       task("#{name}:setup": deps)
     end
 
-    def define_clean_task
+    def define_clean_task #: void
       desc "Clean up generated RBS files"
       task("#{name}:clean": :environment) do
         sh "rm", "-rf", @signature_root_dir.to_s
       end
     end
 
-    def define_generate_task
+    def define_generate_task #: void
       desc "Generate RBS files for ActiveHash models"
       task("#{name}:generate": :environment) do
         require "rbs_active_hash" # load RbsActiveHash lazily
@@ -55,7 +58,7 @@ module RbsActiveHash
 
     private
 
-    def setup_signature_root_dir!
+    def setup_signature_root_dir! #: void
       @signature_root_dir ||= Pathname(Rails.root / "sig/active_hash")
       @signature_root_dir.mkpath
       @signature_root_dir

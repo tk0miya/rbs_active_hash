@@ -4,7 +4,7 @@ require "rails"
 
 module RbsActiveHash
   class InstallGenerator < Rails::Generators::Base
-    def create_raketask
+    def create_raketask #: void
       create_file "lib/tasks/rbs_active_hash.rake", <<~RUBY
         # frozen_string_literal: true
 

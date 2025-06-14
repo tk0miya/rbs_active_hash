@@ -1,0 +1,5 @@
+# Generated from lib/rbs_active_hash/version.rb with RBS::Inline
+
+module RbsActiveHash
+  VERSION: ::String
+end

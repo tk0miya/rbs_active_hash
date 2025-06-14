@@ -12,6 +12,7 @@ module RbsActiveHash
       end
 
       class RB < RBS::Prototype::RB
+        # @rbs override
         def process(node, decls:, comments:, context:)
           case node.type
           when :FCALL, :VCALL
@@ -42,16 +43,21 @@ module RbsActiveHash
       end
 
       class Parser
-        attr_reader :has_many, :has_one, :belongs_to, :scopes
+        attr_reader :has_many #: Array[[Symbol, Hash[untyped, untyped]]]
+        attr_reader :has_one #: Array[[Symbol, Hash[untyped, untyped]]]
+        attr_reader :belongs_to #: Array[[Symbol, Hash[untyped, untyped]]]
+        attr_reader :scopes #: Array[[Symbol, Hash[untyped, untyped]]]
 
-        def initialize
+        def initialize #: void
           @has_many = []
           @has_one = []
           @belongs_to = []
           @scopes = []
         end
 
-        def parse(string, target)
+        # @rbs string: String
+        # @rbs target: Array[Symbol]
+        def parse(string, target) #: void
           parser = RB.new
           parser.parse(string)
           parser.decls.each do |decl|
@@ -59,7 +65,9 @@ module RbsActiveHash
           end
         end
 
-        def process(node, target)
+        # @rbs node: RBS::AST::Declarations::t | RBS::AST::Members::t
+        # @rbs target: Array[Symbol]
+        def process(node, target) #: void
           case node
           when RBS::AST::Declarations::Module, RBS::AST::Declarations::Class
             name = node.name.split
@@ -75,7 +83,8 @@ module RbsActiveHash
           end
         end
 
-        def process_association_definition(node)
+        # @rbs node: AssociationDefinition
+        def process_association_definition(node) #: void
           case node.name.name
           when :has_many
             association_id, args = node_to_literal(node.args)
@@ -89,12 +98,14 @@ module RbsActiveHash
           end
         end
 
-        def process_scope_definition(node)
+        # @rbs node: ScopeDefinition
+        def process_scope_definition(node) #: void
           scope_id, args = node_to_literal(node.args)
           @scopes << [scope_id, args]
         end
 
-        def node_to_literal(node)
+        # @rbs node: untyped
+        def node_to_literal(node) #: untyped
           case node.type
           when :LIST
             node.children[...-1].map { |child| node_to_literal(child) }
