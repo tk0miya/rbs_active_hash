@@ -7,7 +7,7 @@ gemspec
 
 gem "rake", "~> 13.3"
 
-gem "rubocop", "~> 1.75"
+gem "rubocop", "~> 1.76"
 
 group :test do
   gem "activerecord"
