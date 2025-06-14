@@ -135,7 +135,7 @@ module RbsActiveHash
         RBS
       end
 
-      def has_many_decls(definitions) # rubocop:disable Naming/PredicateName
+      def has_many_decls(definitions) # rubocop:disable Naming/PredicatePrefix
         definitions.map do |definition|
           association_id, options = definition
           klass = options.fetch(:class_name, association_id.to_s.classify).constantize
@@ -153,7 +153,7 @@ module RbsActiveHash
         end.join("\n")
       end
 
-      def has_one_decls(definitions) # rubocop:disable Naming/PredicateName
+      def has_one_decls(definitions) # rubocop:disable Naming/PredicatePrefix
         definitions.map do |definition|
           association_id, options = definition
           class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
