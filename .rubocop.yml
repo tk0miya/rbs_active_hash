@@ -4,6 +4,7 @@ AllCops:
 
 plugins:
   - rubocop-rake
+  - rubocop-rspec
 
 Style/Documentation:
   Enabled: false
@@ -39,4 +40,10 @@ Metrics/MethodLength:
   Max: 30
 
 Metrics/PerceivedComplexity:
+  Max: 10
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/MultipleExpectations:
   Max: 10
