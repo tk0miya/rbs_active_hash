@@ -74,13 +74,13 @@ RSpec.describe RbsActiveHash::ActiveHash do
   describe ".user_defined_model?" do
     subject { described_class.user_defined_model?(klass) }
 
-    context "When user-defined model given" do
+    context "when user-defined model given" do
       let(:klass) { Colour }
 
       it { is_expected.to be_truthy }
     end
 
-    context "When subclasses in active_hash gem given" do
+    context "when subclasses in active_hash gem given" do
       let(:klass) { ActiveYaml::Base }
 
       it { is_expected.to be_falsy }
@@ -90,7 +90,7 @@ RSpec.describe RbsActiveHash::ActiveHash do
   describe ".class_to_rbs" do
     subject { described_class.class_to_rbs(klass) }
 
-    context "When enum model given" do
+    context "when enum model given" do
       let(:klass) { Colour }
       let(:expected) do
         <<~RBS
@@ -149,7 +149,7 @@ RSpec.describe RbsActiveHash::ActiveHash do
       end
     end
 
-    context "When association model given" do
+    context "when association model given" do
       let(:klass) { GamePlayer }
       let(:expected) do
         <<~RBS
@@ -190,7 +190,7 @@ RSpec.describe RbsActiveHash::ActiveHash do
       end
     end
 
-    context "When scope model given" do
+    context "when scope model given" do
       let(:klass) { Team }
       let(:expected) do
         <<~RBS

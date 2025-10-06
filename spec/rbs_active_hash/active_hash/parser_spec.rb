@@ -3,11 +3,11 @@
 require "active_hash"
 require "rbs_active_hash"
 
-RSpec.describe RbsActiveHash::ActiveHash::Parser::Parser do
-  describe ".parse" do
+RSpec.describe RbsActiveHash::ActiveHash::Parser do
+  describe "Parser.parse" do
     subject { parser.parse(string, target) }
 
-    let(:parser) { described_class.new }
+    let(:parser) { described_class::Parser.new }
     let(:target) { %i[Mod SubMod Klass] }
     let(:string) do
       <<~RUBY
