@@ -29,7 +29,7 @@ module RbsActiveHash
         path, = Object.const_source_location(klass_name)
         return unless path
 
-        @parser.parse(IO.read(path.to_s), klass_name.split("::").map(&:to_sym))
+        @parser.parse(File.read(path), klass_name.split("::").map(&:to_sym))
       end
 
       def generate #: String
