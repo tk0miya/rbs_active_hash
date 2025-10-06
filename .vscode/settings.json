@@ -3,6 +3,7 @@
         "editor.defaultFormatter": "Shopify.ruby-lsp"
     },
     "cSpell.words": [
+        "activerecord",
         "bindir",
         "boolish",
         "Colour",
@@ -11,6 +12,7 @@
         "klass",
         "KOMIYA",
         "raketask",
+        "rubocop",
         "rubygems",
         "Takeshi",
         "tk0miya",

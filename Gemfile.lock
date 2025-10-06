@@ -162,6 +162,9 @@ GEM
     rubocop-ast (1.47.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-rake (0.7.1)
+      lint_roller (~> 1.1)
+      rubocop (>= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     steep (1.10.0)
@@ -213,6 +216,7 @@ DEPENDENCIES
   rspec
   rspec-daemon
   rubocop (~> 1.81)
+  rubocop-rake
   steep
 
 BUNDLED WITH
