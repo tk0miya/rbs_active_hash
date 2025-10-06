@@ -2,7 +2,6 @@
     "[ruby]": {
         "editor.defaultFormatter": "Shopify.ruby-lsp"
     },
-    "rbs-helper.signature-directory": "sig",
     "cSpell.words": [
         "boolish",
         "Cyclomatic",
@@ -12,5 +11,7 @@
         "rubygems",
         "tk0miya",
         "VCALL"
-    ]
+    ],
+    "rbs-helper.rbs-inline-signature-directory": "sig/",
+    "rbs-helper.rbs-inline-on-save": true
 }
