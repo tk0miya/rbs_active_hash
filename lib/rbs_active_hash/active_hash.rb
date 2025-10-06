@@ -142,7 +142,7 @@ module RbsActiveHash
       end
 
       # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
-      def has_many_decls(definitions) #: String # rubocop:disable Naming/PredicateName
+      def has_many_decls(definitions) #: String # rubocop:disable Naming/PredicatePrefix
         definitions.map do |definition|
           association_id, options = definition
           klass = options.fetch(:class_name, association_id.to_s.classify).constantize
@@ -161,7 +161,7 @@ module RbsActiveHash
       end
 
       # @rbs definitions: Array[[Symbol, Hash[untyped, untyped]]]
-      def has_one_decls(definitions) #: String # rubocop:disable Naming/PredicateName
+      def has_one_decls(definitions) #: String # rubocop:disable Naming/PredicatePrefix
         definitions.map do |definition|
           association_id, options = definition
           class_name = options.fetch(:class_name, association_id.to_s.classify).constantize
