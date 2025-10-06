@@ -14,22 +14,23 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '3.3'
+          - "3.3"
+          - "3.4"
 
     steps:
-    - uses: actions/checkout@v5
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Set rbs collection up
-      run: bundle exec rbs collection install --frozen
-    - name: Run the default task
-      run: bundle exec rake
-    - name: Run rspec
-      run: bundle exec rspec
-    - name: Run rbs validate
-      run: bundle exec rbs -Isig validate
-    - name: Run steep check
-      run: bundle exec steep check
+      - uses: actions/checkout@v5
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Set rbs collection up
+        run: bundle exec rbs collection install --frozen
+      - name: Run the default task
+        run: bundle exec rake
+      - name: Run rspec
+        run: bundle exec rspec
+      - name: Run rbs validate
+        run: bundle exec rbs -Isig validate
+      - name: Run steep check
+        run: bundle exec steep check

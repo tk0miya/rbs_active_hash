@@ -109,7 +109,7 @@ module RbsActiveHash
           case node.type
           when :LIST
             node.children[...-1].map { |child| node_to_literal(child) }
-          when :LIT, :STR
+          when :LIT, :STR, :SYM
             node.children.first
           when :HASH
             Hash[*node_to_literal(node.children.first)]
