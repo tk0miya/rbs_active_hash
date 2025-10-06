@@ -3,12 +3,16 @@
         "editor.defaultFormatter": "Shopify.ruby-lsp"
     },
     "cSpell.words": [
+        "bindir",
         "boolish",
+        "Colour",
         "Cyclomatic",
         "FCALL",
         "klass",
+        "KOMIYA",
         "raketask",
         "rubygems",
+        "Takeshi",
         "tk0miya",
         "VCALL"
     ],

@@ -43,7 +43,7 @@ end
 class Item < ActiveRecord::Base
 end
 
-class Skill
+class Skill # rubocop:disable Lint/EmptyClass
 end
 
 class Job < ActiveRecord::Base
