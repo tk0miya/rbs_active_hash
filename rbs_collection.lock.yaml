@@ -190,7 +190,7 @@ gems:
   source:
     type: stdlib
 - name: prism
-  version: 1.5.1
+  version: 1.6.0
   source:
     type: rubygems
 - name: rack
