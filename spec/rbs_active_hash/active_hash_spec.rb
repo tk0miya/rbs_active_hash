@@ -4,7 +4,6 @@ require "active_hash"
 require "active_record"
 require "rbs_active_hash"
 
-# rubocop:disable Style/OneClassPerFile
 class Colour < ActiveHash::Base
   include ActiveHash::Enum
 
@@ -70,7 +69,6 @@ class Team < ActiveHash::Base
   scope :red, -> { where(colour: "red") }
   scope :blue, ->(_obj) { where(colour: "blue") }
 end
-# rubocop:enable Style/OneClassPerFile
 
 RSpec.describe RbsActiveHash::ActiveHash do
   describe ".user_defined_model?" do
