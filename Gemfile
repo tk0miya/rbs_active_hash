@@ -9,6 +9,7 @@ gem "rake", "~> 13.4"
 
 gem "rubocop", "~> 1.88"
 gem "rubocop-rake"
+gem "rubocop-rbs_inline"
 gem "rubocop-rspec"
 
 group :test do
