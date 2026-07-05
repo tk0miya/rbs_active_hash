@@ -98,7 +98,7 @@ module RbsActiveHash
           include ActiveHash::Enum
           extend ActiveHash::Enum::Methods
 
-          #{constants.map { |c| "#{c}: #{klass_name}" }.join("\n")}
+          #{constants.map { "#{_1}: #{klass_name}" }.join("\n")}
         RBS
       end
 
@@ -107,7 +107,7 @@ module RbsActiveHash
         return [] unless enum_accessors
 
         klass.data.filter_map do |record|
-          constant = enum_accessors.map { |name| record[name] }.join("_")
+          constant = enum_accessors.map { record[_1] }.join("_")
           next if constant.empty?
 
           constant.gsub!(/\W+/, "_")
@@ -121,7 +121,7 @@ module RbsActiveHash
         return if parser.scopes.empty?
 
         parser.scopes.map do |scope_id, args|
-          arguments = args.map { |arg| "untyped #{arg}" }.join(", ")
+          arguments = args.map { "untyped #{_1}" }.join(", ")
           <<~RBS.strip
             def self.#{scope_id}: (#{arguments}) -> ActiveHash::Relation[instance]
           RBS
@@ -204,7 +204,7 @@ module RbsActiveHash
         method_names = (klass.data || []).flat_map do |record|
           record.symbolize_keys.keys
         end
-        method_names.uniq.select { |k| valid_field_name?(k) }
+        method_names.uniq.select { valid_field_name?(_1) }
       end
 
       def method_types #: Hash[Symbol, untyped]
@@ -250,7 +250,7 @@ module RbsActiveHash
         elsif type.is_a? Class
           type.name.to_s
         elsif type.is_a? Array
-          types = type.map { |t| stringify_type(t) }.uniq.sort
+          types = type.map { stringify_type(_1) }.uniq.sort
           if types.delete("nil")
             "(#{types.join(" | ")})?"
           else

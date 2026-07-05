@@ -67,7 +67,7 @@ end
 
 class Team < ActiveHash::Base
   scope :red, -> { where(colour: "red") }
-  scope :blue, ->(_obj) { where(colour: "blue") }
+  scope :blue, ->(_obj) { where(colour: "blue") } # rubocop:disable Style/PreferNumberedParameter
 end
 
 RSpec.describe RbsActiveHash::ActiveHash do
