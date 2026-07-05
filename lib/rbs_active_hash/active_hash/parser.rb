@@ -108,7 +108,7 @@ module RbsActiveHash
         def node_to_literal(node) #: untyped
           case node.type
           when :LIST
-            node.children[...-1].map { |child| node_to_literal(child) }
+            node.children[...-1].map { node_to_literal(_1) }
           when :LIT, :STR, :SYM
             node.children.first
           when :HASH
