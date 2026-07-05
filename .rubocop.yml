@@ -4,6 +4,7 @@ AllCops:
 
 plugins:
   - rubocop-rake
+  - rubocop-rbs_inline
   - rubocop-rspec
 
 Style/Documentation:
@@ -47,3 +48,12 @@ RSpec/NamedSubject:
 
 RSpec/MultipleExpectations:
   Max: 10
+
+Style/RbsInline/MissingTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
+
+Style/RbsInline/RedundantTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
+
+Style/RbsInline/RequireRbsInlineComment:
+  EnforcedStyle: never
