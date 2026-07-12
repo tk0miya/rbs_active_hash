@@ -16,3 +16,4 @@ path: .gem_rbs_collection
 gems:
   - name: steep
     ignore: true
+  - name: strscan
