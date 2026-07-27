@@ -294,7 +294,7 @@ gems:
   source:
     type: rubygems
 - name: rubocop-rbs_inline
-  version: 1.5.5
+  version: 1.8.0
   source:
     type: rubygems
 - name: securerandom
