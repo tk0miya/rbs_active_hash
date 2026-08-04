@@ -42,27 +42,17 @@ Metrics/PerceivedComplexity:
 RSpec/ExampleLength:
   Enabled: false
 
-RSpec/MultipleMemoizedHelpers:
-  Max: 10
-
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
 
 RSpec/NamedSubject:
   Enabled: false
 
 RSpec/NestedGroups:
   Max: 5
-
-# RbsInline
-Style/RbsInline:
-  Mode: opt_out
-
-Style/RbsInline/MissingTypeAnnotation:
-  EnforcedStyle: doc_style_and_return_annotation
-
-Style/RbsInline/RedundantTypeAnnotation:
-  EnforcedStyle: doc_style_and_return_annotation
 
 # Style
 Style/AccessorGrouping:
@@ -76,6 +66,15 @@ Style/Documentation:
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: always
+
+Style/RbsInline:
+  Mode: opt_out
+
+Style/RbsInline/MissingTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
+
+Style/RbsInline/RedundantTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
