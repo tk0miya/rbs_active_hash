@@ -88,20 +88,20 @@ module RbsActiveHash
           case node.name.name
           when :has_many
             association_id, args = node_to_literal(node.args)
-            @has_many << [association_id, args.to_h]
+            has_many << [association_id, args.to_h]
           when :has_one
             association_id, args = node_to_literal(node.args)
-            @has_one << [association_id, args.to_h]
+            has_one << [association_id, args.to_h]
           when :belongs_to
             association_id, args = node_to_literal(node.args)
-            @belongs_to << [association_id, args.to_h]
+            belongs_to << [association_id, args.to_h]
           end
         end
 
         # @rbs node: ScopeDefinition
         def process_scope_definition(node) #: void
           scope_id, args = node_to_literal(node.args)
-          @scopes << [scope_id, args]
+          scopes << [scope_id, args]
         end
 
         # @rbs node: untyped
