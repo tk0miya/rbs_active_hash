@@ -8,6 +8,7 @@ gemspec
 gem "rake", "~> 13.4"
 
 gem "rubocop", "~> 1.91"
+gem "rubocop-instance_variable_access"
 gem "rubocop-numbered-params"
 gem "rubocop-rake"
 gem "rubocop-rbs_inline"
