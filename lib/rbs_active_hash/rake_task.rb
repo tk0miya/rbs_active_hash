@@ -35,7 +35,7 @@ module RbsActiveHash
     def define_clean_task #: void
       desc "Clean up generated RBS files"
       task("#{name}:clean": :environment) do
-        sh "rm", "-rf", @signature_root_dir.to_s
+        sh "rm", "-rf", signature_root_dir.to_s
       end
     end
 
@@ -60,8 +60,8 @@ module RbsActiveHash
 
     def setup_signature_root_dir! #: void
       @signature_root_dir ||= Pathname(Rails.root / "sig/active_hash")
-      @signature_root_dir.mkpath
-      @signature_root_dir
+      signature_root_dir.mkpath
+      signature_root_dir
     end
   end
 end
